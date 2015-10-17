@@ -14,6 +14,9 @@ def client(conn, addr, nick,):
 			data = conn.recv(1024).decode()
 		except socket.error as e:
 			print(e)
+			nick += " Disconnected"
+			nick = nick.encode()
+			sendall(nick)
 			clients.remove(conn)
 			break
 		data = nick + " || " + data
@@ -22,7 +25,7 @@ def client(conn, addr, nick,):
 #-----------------------------
 clients = []
 Server = socket.socket()
-ip = "192.168.0.2"
+ip = "192.168.1.254"
 port = 5000
 Server.bind((ip, port))
 #-----------------------------
