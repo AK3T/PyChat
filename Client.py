@@ -37,7 +37,7 @@ def getTerminalSize():
 
 width, height = getTerminalSize()
 bar = ""
-for x in range(width - 16):
+for x in range(width):
 	bar += "="
 
 typing = ""
