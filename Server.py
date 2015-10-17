@@ -8,8 +8,14 @@ def sendall(data):
 		x.send(data)
 
 def client(conn, addr, nick,):
+	global clients
 	while True:
-		data = conn.recv(1024).decode()
+		try:
+			data = conn.recv(1024).decode()
+		except socket.error as e:
+			print(e)
+			clients.remove(conn)
+			break
 		data = nick + " || " + data
 		data = data.encode()
 		sendall(data)
