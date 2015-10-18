@@ -1,7 +1,6 @@
 #server
 import socket
 import threading
-
 def sendall(data):
 	global clients
 	for x in clients:
@@ -14,10 +13,10 @@ def client(conn, addr, nick,):
 			data = conn.recv(1024).decode()
 		except socket.error as e:
 			print(e)
-			nick += " Disconnected"
+			nick += " Disconnected!"
 			nick = nick.encode()
-			sendall(nick)
 			clients.remove(conn)
+			sendall(nick)
 			break
 		data = nick + " || " + data
 		data = data.encode()
@@ -41,9 +40,9 @@ while True:
 	data = nick + " Connected!"
 	data = data.encode()
 	sendall(data)
+	Count = len(clients)
+	Count = " Total Users Connected: " + str(Count)
+	Count = Count.encode()
+	sendall(Count)
 	c = threading.Thread(target=client,args=(conn, addr, nick))
 	c.start()
-
-
-
-
